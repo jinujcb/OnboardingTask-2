@@ -1,0 +1,258 @@
+﻿@model List<MVC_CRUD.Models.Product>
+@{
+    ViewBag.Title = "Index";
+}
+
+<br />
+<h2>Product Details</h2>
+<br />
+
+<body>
+
+
+    <a href="#" class="btn btn-primary" id="btnCreate" margin-left=100px>Add New Product</a>
+
+    @*  <a href="#" class="btn btn-primary" id="btnCreate">Add New Product</a>*@
+
+
+    <br />
+    <br />
+
+    <table id="ProductTable" class="table table-striped table-bordered" style="width:100%;margin-left:12px">
+
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Action(Edit)</th>
+                <th>Action(Delete)</th>
+            </tr>
+        </thead>
+
+        <tbody id="SetStudentList"></tbody>
+
+    </table>
+
+
+    <div id="m_modal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="m_Title" style="margin-right:20px"></h3>
+                    @Html.ActionLink("x", "Index", "Products", new { @class = "close" })
+                </div>
+                @Html.ValidationSummary(true)
+                <div class="modal-body">
+                    @Html.Label("Name")
+                    <br />
+                    <div id="error0"></div>
+                    <input type="text" name="Name" id="Name" required />
+                    <span class="validity">  </span>
+                    <br />
+                    <br />
+                    @Html.Label("Price")
+                    <br />
+                    <div id="error1"></div>
+                    <input type="text" name="Price" id="Price" required />
+                    <span class="validity">  </span>
+                    <br />
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" value="Save" class="btn btn-primary" id="btnSubmit" />
+                    @Html.ActionLink("Close", "Index", "Products", new { @class = "btn btn-danger" })
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section scripts{
+
+
+        <script>
+
+
+            $(document).ready(function () {
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Products/GetAllProducts",
+                    success: function (data) {
+                        $.each(data, function (index, obj) {
+                            var ID = obj.ID;
+                            var row = '<tr><td> ' + obj.Name + ' </td> <td> ' + obj.Price + ' </td><td> <div><span class="btn_edit" ><a href="#" class="btn btn-warning " id="' + obj.ID + '" style="color:white; margin-left:10px"" ><i class="fa fa-pencil"></i>Edit</a></span></div></td>' + '<td><div><span class="btn_delete" ><button class="btn btn-danger" id="' + obj.ID + '"style="color:white; margin-left:10px""><i class="fa fa-trash"></i> Delete</button></span></div></td></tr>';
+                            $("#ProductTable tbody").append(row);
+
+                        });
+                    }
+                });
+
+
+                $("#btnCreate").on('click', function () {
+                    $('#m_modal').modal('show');
+                    $('.modal-title').text("Create Record");
+                });
+
+
+
+                $(document).on('click', '.btn_edit', function (event) {
+
+                    Id = event.target.id;
+
+                    $.ajax({
+                        url: '/Products/GetProduct',
+                        method: 'GET',
+                        data: { ID: Id },
+                        success: function (data) {
+
+                            ID = data.ID,
+                                Name = data.Name,
+                                Price = data.Price;
+
+                            $(".modal-body #Name").val(data.Name);
+                            $(".modal-body #Price").val(data.Price);
+                            return true;
+                        },
+                        error: function () {
+                            alert("error");
+                        }
+
+                    })
+
+
+                    $('#m_modal').modal('show');
+                    $('.modal-title').text("Edit Record");
+
+                });
+
+                $(document).on('click', '.btn_delete', function (event) {
+                    Id = event.target.id;
+
+                    $.ajax({
+                        url: '/Products/GetProduct',
+                        method: 'GET',
+                        data: { ID: Id },
+                        success: function (data) {
+
+                            ID = data.ID,
+                                Name = data.Name,
+                                Price = data.Price;
+
+                            $(".modal-body #Name").val(data.Name);
+                            $(".modal-body #Price").val(data.Price);
+                            return true;
+                        },
+                        error: function () {
+                            alert("error");
+                        }
+
+                    })
+
+                    bootbox.confirm("Are you sure you want to delete?", function (result)//jquery library that has inbuit modals, added in layout and bundle only .js file
+                    {
+                        console.log('This was logged in the callback: ' + result);
+                        if (result) {
+                            var delete_confirm = true;
+                            console.log("true");
+                            $.ajax({
+                                url: '/Products/Delete',
+                                method: 'POST',
+                                data: { ID: Id },
+                                success: function () {
+                                    location.reload();
+                                    return true;
+                                },
+                                error: function () {
+
+                                    location.reload();
+                                }
+
+                            })
+                        }
+                        else {
+                            var delete_confirm = false;
+                            location.reload();
+                        }
+                    });
+
+                });
+
+                $(document).on("click", "#btnSubmit", null, function (ev) {
+                    var Name = $("#Name").val();
+                    var Price = $("#Price").val();
+                    //    if (Name != '' && Price != '')
+                    //  {
+                    //   if (!isNaN(Price)) {
+                    console.log("ok");
+
+                    if ($('#m_Title').text() === "Create Record") {
+
+
+                        $.ajax({
+                            url: '/Products/Index',
+                            method: 'POST',
+                            data: { Name: Name, Price: Price },
+                            success: function () {
+
+                                location.reload();
+                                return true;
+                            },
+                            error: function () {
+                                alert("error");
+                                location.reload();
+                            }
+                        })
+                    }
+                    else if ($('#m_Title').text() === "Edit Record") {
+
+
+                        $.ajax({
+                            url: '/Products/Edit',
+                            method: 'POST',
+                            data: { ID: Id, Name: Name, Price: Price },
+                            success: function () {
+                                location.reload();
+                                return true;
+                            },
+                            error: function () {
+
+                                location.reload();
+                            }
+
+                        })
+                    }
+
+                    /*    }
+                      else {
+                          document.getElementById('error1').innerHTML = "<span style='color:red'>This entry can only contain numbers";
+                          //  alert("This entry can only contain numbers")
+                          return false;
+                      }
+               //   }
+                else {
+                      console.log("sorry");
+                      if (Name == '') {
+                          document.getElementById('error0').innerHTML = "<span style='color:red'>Name Required";
+                      }
+                      if (Price == "") {
+                          document.getElementById('error1').innerHTML = "<span style='color:red'>Price Required";
+                      }
+
+
+                      alert("Please Fill Product Details");
+                      return false;
+
+                  }*/
+
+                });
+
+
+            });//document ready
+
+
+
+
+        </script>
+    }
+
+</body>

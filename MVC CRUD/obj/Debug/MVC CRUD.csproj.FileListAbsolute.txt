@@ -1,0 +1,93 @@
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\ApplicationInsights.config
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\MVC CRUD.dll.config
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\MVC CRUD.dll
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\MVC CRUD.pdb
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\Antlr3.Runtime.dll
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\EntityFramework.dll
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\EntityFramework.SqlServer.dll
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\Microsoft.AI.Web.dll
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\Microsoft.ApplicationInsights.dll
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\Newtonsoft.Json.dll
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\System.Web.Helpers.dll
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\System.Web.Mvc.dll
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\System.Web.Optimization.dll
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\System.Web.Razor.dll
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\System.Web.WebPages.Deployment.dll
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\System.Web.WebPages.dll
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\System.Web.WebPages.Razor.dll
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\WebGrease.dll
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\EntityFramework.xml
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\EntityFramework.SqlServer.xml
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\System.Web.Helpers.xml
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\System.Web.Mvc.xml
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\System.Web.Optimization.xml
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\System.Web.Razor.xml
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\System.Web.WebPages.xml
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\System.Web.WebPages.Deployment.xml
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\System.Web.WebPages.Razor.xml
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\Antlr3.Runtime.pdb
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\Newtonsoft.Json.xml
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\Microsoft.ApplicationInsights.xml
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\bin\Microsoft.AI.Web.xml
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\obj\Debug\MVC CRUD.csprojResolveAssemblyReference.cache
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\obj\Debug\MVC CRUD.csproj.CoreCompileInputs.cache
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\obj\Debug\MVC CRUD.dll
+C:\Users\JINU.J\source\repos\MVC CRUD\MVC CRUD\obj\Debug\MVC CRUD.pdb
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\ApplicationInsights.config
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\MVC CRUD.dll.config
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\MVC CRUD.dll
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\MVC CRUD.pdb
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\Antlr3.Runtime.dll
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\EntityFramework.dll
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\EntityFramework.SqlServer.dll
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\Microsoft.AI.Agent.Intercept.dll
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\Microsoft.AI.DependencyCollector.dll
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\Microsoft.AI.PerfCounterCollector.dll
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\Microsoft.AI.ServerTelemetryChannel.dll
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\Microsoft.AI.Web.dll
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\Microsoft.AI.WindowsServer.dll
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\Microsoft.ApplicationInsights.dll
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\Microsoft.Web.Infrastructure.dll
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\Newtonsoft.Json.dll
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\System.Web.Helpers.dll
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\System.Web.Mvc.dll
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\System.Web.Optimization.dll
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\System.Web.Razor.dll
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\System.Web.WebPages.Deployment.dll
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\System.Web.WebPages.dll
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\System.Web.WebPages.Razor.dll
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\WebGrease.dll
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\EntityFramework.xml
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\EntityFramework.SqlServer.xml
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\Newtonsoft.Json.xml
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\System.Web.Helpers.xml
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\System.Web.Mvc.xml
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\System.Web.Optimization.xml
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\System.Web.Razor.xml
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\System.Web.WebPages.xml
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\System.Web.WebPages.Deployment.xml
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\System.Web.WebPages.Razor.xml
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\Antlr3.Runtime.pdb
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\Microsoft.ApplicationInsights.xml
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\Microsoft.AI.DependencyCollector.xml
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\Microsoft.AI.ServerTelemetryChannel.xml
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\Microsoft.AI.WindowsServer.xml
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\bin\Microsoft.AI.Web.xml
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\obj\Debug\MVC CRUD.csprojAssemblyReference.cache
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\obj\Debug\MVC CRUD.csproj.CoreCompileInputs.cache
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\obj\Debug\MVC CRUD.csproj.CopyComplete
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\obj\Debug\MVC CRUD.dll
+\\Mac\Home\Documents\MVC CRUD\MVC CRUD\obj\Debug\MVC CRUD.pdb

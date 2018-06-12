@@ -1,0 +1,253 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@*Add external script files if libraray not added*@
+
+<br />
+<h2>Store Details</h2>
+<br />
+
+<body>
+
+
+    <a href="#" class="btn btn-primary" id="btnCreate" margin-left=100px>Add New Store</a>
+
+    @*  <a href="#" class="btn btn-primary" id="btnCreate">Add New Product</a>*@
+
+
+    <br />
+    <br />
+
+    <table id="StoreTable" class="table table-striped table-bordered" style="width:100%;margin-left:12px">
+
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Action(Edit)</th>
+                <th>Action(Delete)</th>
+            </tr>
+        </thead>
+
+        <tbody id="SetStudentList"></tbody>
+
+    </table>
+
+
+    <div id="m_modal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="m_Title" style="margin-right:20px"></h3>
+                    @Html.ActionLink("x", "Index", "Store", new { @class = "close" })
+                </div>
+                @Html.ValidationSummary(true)
+                <div class="modal-body">
+                    @Html.Label("Name")
+                    <br />
+                    <div id="error0"></div>
+                    <input type="text" name="Name" id="Name" required />
+                    <span class="validity">  </span>
+                    <br />
+                    <br />
+                    @Html.Label("Address")
+                    <br />
+                    <div id="error1"></div>
+                    <input type="text" name="Address" id="Address" required />
+                    <span class="validity">  </span>
+                    <br />
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" value="Save" class="btn btn-primary" id="btnSubmit" />
+                    @Html.ActionLink("Close", "Index", "Store", new { @class = "btn btn-danger" })
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section scripts{
+
+
+
+        <script>
+
+
+            $(document).ready(function () {
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Store/GetAllStores",
+                    success: function (data) {
+                        $.each(data, function (index, obj) {
+                            var ID = obj.ID;
+                            var row = '<tr><td> ' + obj.Name + ' </td> <td> ' + obj.Address + ' </td><td> <div><span class="btn_edit" ><a href="#" class="btn btn-warning " id="' + obj.ID + '" style="color:white; margin-left:10px"" ><i class="fa fa-pencil"></i>Edit</a></span></div></td>' + '<td><div><span class="btn_delete" ><button class="btn btn-danger" id="' + obj.ID + '"style="color:white; margin-left:10px""><i class="fa fa-trash"></i> Delete</button></span></div></td></tr>';
+                            $("#StoreTable tbody").append(row);
+
+                        });
+                    }
+                });
+
+
+                $("#btnCreate").on('click', function () {
+                    $('#m_modal').modal('show');
+                    $('.modal-title').text("Create Record");
+                });
+
+
+
+                $(document).on('click', '.btn_edit', function (event) {
+
+                    Id = event.target.id;
+
+                    $.ajax({
+                        url: '/Store/GetStore',
+                        method: 'GET',
+                        data: { ID: Id },
+                        success: function (data) {
+
+                            ID = data.ID,
+                                Name = data.Name,
+                                Address = data.Address;
+
+                            $(".modal-body #Name").val(data.Name);
+                            $(".modal-body #Address").val(data.Address);
+                            return true;
+                        },
+                        error: function () {
+                          
+                        }
+
+                    })
+
+
+                    $('#m_modal').modal('show');
+                    $('.modal-title').text("Edit Record");
+
+                });
+
+                $(document).on('click', '.btn_delete', function (event) {
+                    Id = event.target.id;
+
+                    $.ajax({
+                        url: '/Store/GetStore',
+                        method: 'GET',
+                        data: { ID: Id },
+                        success: function (data) {
+
+                            ID = data.ID,
+                                Name = data.Name,
+                                Address = data.Address;
+
+                            $(".modal-body #Name").val(data.Name);
+                            $(".modal-body #Address").val(data.Address);
+                            return true;
+                        },
+                        error: function () {
+                            
+                        }
+
+                    })
+
+                    bootbox.confirm("Are you sure you want to delete?", function (result)//jquery library that has inbuit modals, added in layout and bundle only .js file
+                    {
+                        console.log('This was logged in the callback: ' + result);
+                        if (result) {
+                            var delete_confirm = true;
+                            console.log("true");
+                            $.ajax({
+                                url: '/Store/Delete',
+                                method: 'POST',
+                                data: { ID: Id },
+                                success: function () {
+                                    location.reload();
+                                    return true;
+                                },
+                                error: function () {
+
+                                    location.reload();
+                                }
+
+                            })
+                        }
+                        else {
+                            var delete_confirm = false;
+                            location.reload();
+                        }
+                    });
+
+                });
+
+                $(document).on("click", "#btnSubmit", null, function (ev) {
+                    var Name = $("#Name").val();
+                    var Address = $("#Address").val();
+                    if (Name != '' && Address != '') {
+
+
+                        if ($('#m_Title').text() === "Create Record") {
+
+
+                            $.ajax({
+                                url: '/Store/Index',
+                                method: 'POST',
+                                data: { Name: Name, Address: Address },
+                                success: function () {
+
+                                    location.reload();
+                                    return true;
+                                },
+                                error: function () {
+                                    alert("error");
+                                    location.reload();
+                                }
+                            })
+                        }
+                        else if ($('#m_Title').text() === "Edit Record") {
+
+
+                            $.ajax({
+                                url: '/Store/Edit',
+                                method: 'POST',
+                                data: { ID: Id, Name: Name, Address: Address },
+                                success: function () {
+                                    location.reload();
+                                    return true;
+                                },
+                                error: function () {
+
+                                    location.reload();
+                                }
+
+                            })
+                        }
+
+                    }
+                    else {
+
+                        if (Name == '') {
+                            document.getElementById('error0').innerHTML = "<span style='color:red'>Name Required";
+                        }
+                        if (Address == "") {
+                            document.getElementById('error1').innerHTML = "<span style='color:red'>Address Required";
+                        }
+
+
+                        alert("Please Fill Store Details");
+                        return false;
+
+                    }
+
+                });
+
+
+            });//document ready
+
+
+
+
+        </script>
+    }
+
+</body>
