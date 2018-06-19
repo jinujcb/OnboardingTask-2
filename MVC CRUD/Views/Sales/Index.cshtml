@@ -76,7 +76,7 @@
                         @Html.Label("Date Sold")
                         <br />
                         <div id="error3"></div>
-                        <input id="Datesold" type="date" class="datepicker" name="date" />
+                        @Html.TextBoxFor(model => model.Datesold, "{0:MM/dd/yyyy}", new { @class = "text-danger default-date-picker" })
                         @Html.ValidationMessageFor(model => model.Datesold, null, new { @class = "text-danger" })
                         <span class="validity">  </span>
                     </div>
