@@ -24,62 +24,30 @@ namespace MVC_CRUD.Controllers
         {
             db.Configuration.ProxyCreationEnabled = false;
             Product productnew = db.Products.Find(id);
-
             return Json(productnew, JsonRequestBehavior.AllowGet);
-            //return View(productnew); 
 
         }
-
-        [HttpGet]
         public ActionResult Index()
         {
-            return View(db.Products.ToList());
+            return View("Index");
         }
 
-        [HttpPost]
-        public ActionResult Index(Product product)
-        {
 
-            if (!ModelState.IsValid)
-            {
-                if (string.IsNullOrEmpty(product.Name))
-                {
-                    ModelState.AddModelError("Name", " Name is required");
-                }
-                if (string.IsNullOrEmpty(product.Price))
-                {
-                    ModelState.AddModelError("Price", " Price is required");
-                }
-                return View();
-            }
-            else
+        [HttpPost]
+        public ActionResult Create(Product product)
+        {
+            if (ModelState.IsValid)
             {
                 db.Products.Add(product);
                 db.SaveChanges();
-                return View(product);
+                return RedirectToAction("Index");
             }
-
+            return View();
         }
-
-
-
-
-        public ActionResult Edit(int id)
-        {
-            Product productnew = db.Products.Find(id);
-            if (productnew == null)
-            {
-                return HttpNotFound();
-            }
-            return View(productnew);
-        }
-
-
 
         [HttpPost]
         public ActionResult Edit(Product product)  // Update PartialView  
         {
-            // bool status = false;
             if (ModelState.IsValid)
             {
                 Product productnew = db.Products.Where(X => X.ID == product.ID).FirstOrDefault();
@@ -89,32 +57,20 @@ namespace MVC_CRUD.Controllers
                     productnew.Name = product.Name;
                     productnew.Price = product.Price;
                 }
-
-
                 db.SaveChanges();
-            }
-            return RedirectToAction("Index");
-        }
-
-
-        public ActionResult Delete(int id)
-        {
-            Product productnew = db.Products.Where(X => X.ID == id).FirstOrDefault();
-            if (productnew != null)
-            {
-                return View(productnew);
+                return View("Index");
             }
             else
-                return HttpNotFound();
+            {
+                return View(product);
+            }
         }
-
 
 
         [HttpPost]
         [ActionName("Delete")]
         public ActionResult DeleteEmployee(int id)  // Update PartialView  
         {
-            // bool status = false;
             if (ModelState.IsValid)
             {
                 Product productnew = db.Products.Where(X => X.ID == id).FirstOrDefault();
@@ -122,12 +78,10 @@ namespace MVC_CRUD.Controllers
                 {
                     db.Products.Remove(productnew);
                     db.SaveChanges();
-                    // status = true;
                 }
-               
             }
             return RedirectToAction("Index");
+
         }
-   
     }
 }

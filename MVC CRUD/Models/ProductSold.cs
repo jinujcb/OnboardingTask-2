@@ -9,10 +9,10 @@
 
 namespace MVC_CRUD.Models
 {
-    using System;
-    using System.Collections.Generic;
+    using System;  
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+    using System.Collections.Generic;
 
     public partial class ProductSold
     {
@@ -20,6 +20,8 @@ namespace MVC_CRUD.Models
         public int CustomerID { get; set; }
         public int ProductID { get; set; }
         public int StoreID { get; set; }
+
+        [Required(ErrorMessage = "*")]
         public DateTime Datesold { get; set; }
     
         public virtual Customer Customer { get; set; }

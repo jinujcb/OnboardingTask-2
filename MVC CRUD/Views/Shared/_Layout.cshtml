@@ -25,10 +25,10 @@
                     <a class="nav-link" href="/Products/Index" style="color:white">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Store/Index"  style="color:white">Store</a>
+                    <a class="nav-link" href="/Store/Index" style="color:white">Store</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Sales/Index"  style="color:white">Sales</a>
+                    <a class="nav-link" href="/Sales/Index" style="color:white">Sales</a>
                 </li>
             </ul>
         </div>
@@ -40,8 +40,10 @@
             <p>&copy; @DateTime.Now.Year - Onboarding Task -2 </p>
         </footer>
     </div>
-    @Styles.Render("~/Content/css");
+
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/bootbox")
     @Scripts.Render("~/bundles/moment")

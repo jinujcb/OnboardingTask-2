@@ -1,4 +1,4 @@
-﻿@model List<MVC_CRUD.Models.Customer>
+﻿@model MVC_CRUD.Models.Customer
 @{
     ViewBag.Title = "Index";
 }
@@ -10,9 +10,6 @@
 
 
     <a href="#" class="btn btn-primary" id="btnCreate" margin-left=100px>Add New Customer</a>
-
-    @*  <a href="#" class="btn btn-primary" id="btnCreate">Add New Product</a>*@
-
 
     <br />
     <br />
@@ -32,24 +29,23 @@
 
     </table>
 
+    @using (Html.BeginForm())
+    {
+        <div id="m_modal" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    @Html.AntiForgeryToken()
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="m_Title" style="margin-right:20px"></h3>
+                        @Html.ActionLink("x", "Index", "Customer", new { @class = "close" })
+                    </div>
+                    <div class="modal-body">
 
-    <div id="m_modal" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title" id="m_Title" style="margin-right:20px"></h3>
-                    @Html.ActionLink("x", "Index", "Customer", new { @class = "close" })
-                </div>
-              
-                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-
-                <div class="modal-body">
-                 
                         @Html.Label("Name")
-
                         <br />
                         <div id="error0"></div>
-                        <input type="text" name="Name" id="Name" required />
+                        @Html.TextBoxFor(model => model.Name)
+                        @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
                         <span class="validity">  </span>
 
                         <br />
@@ -57,19 +53,21 @@
                         @Html.Label("Address")
                         <br />
                         <div id="error1"></div>
-                        <input type="text" name="Address" id="Address" required />
+                        @Html.TextBoxFor(model => model.Address)
+                        @Html.ValidationMessageFor(model => model.Address, null, new { @class = "text-danger" })
                         <span class="validity">  </span>
                         <br />
-                  
-                </div>
-                    <div class="modal-footer">
-                        <input type="submit" value="Save" class="btn btn-primary" id="btnSubmit" />
-                        @Html.ActionLink("Close", "Index", "Customer", new { @class = "btn btn-danger" })
 
                     </div>
+                    <div class="modal-footer">
+                        <input type="button" value="Save" class="btn btn-primary" id="btnSubmit" />
+                        @Html.ActionLink("Close", "Index", "Customer", new { @class = "btn btn-danger" })
+                    </div>
                 </div>
+            </div>
         </div>
-    </div>
+    }
+</body>
 
     @section scripts{
 
@@ -112,8 +110,8 @@
                         success: function (data) {
 
                             ID = data.ID,
-                                Name = data.Name,
-                                Address = data.Address;
+                            Name = data.Name,
+                            Address = data.Address;
 
                             $(".modal-body #Name").val(data.Name);
                             $(".modal-body #Address").val(data.Address);
@@ -153,13 +151,10 @@
 
                     })
 
-                    //$('#m_modal').modal('show');
-                    // $('.modal-title').text("Delete Record");
-
-
                     bootbox.confirm("Are you sure you want to delete?", function (result)//jquery library that has inbuit modals, added in layout and bundle only .js file
                     {
                         console.log('This was logged in the callback: ' + result);
+
                         if (result) {
                             var delete_confirm = true;
                             console.log("true");
@@ -184,6 +179,7 @@
                         }
                     });
                 });
+
                 $(document).on("click", "#btnSubmit", null, function (ev) {
                     var Name = $("#Name").val();
                     var Address = $("#Address").val();
@@ -194,17 +190,13 @@
 
 
                             $.ajax({
-                                url: '/Customer/Index',
+                                url: '/Customer/Create',
                                 method: 'POST',
                                 data: { Name: Name, Address: Address },
                                 success: function () {
-
                                     location.reload();
-                                    return true;
                                 },
                                 error: function () {
-                                    alert("error");
-                                    location.reload();
                                 }
                             })
                         }
@@ -217,11 +209,8 @@
                                 data: { ID: Id, Name: Name, Address: Address },
                                 success: function () {
                                     location.reload();
-                                    return true;
                                 },
-                                error: function () {
-
-                                    location.reload();
+                                error: function () { 
                                 }
 
                             })
@@ -229,14 +218,12 @@
 
                     }
                     else {
-                        console.log("sorry");
                         if (Name == '') {
                             document.getElementById('error0').innerHTML = "<span style='color:red'>Name Required";
                         }
                         if (Address == "") {
                             document.getElementById('error1').innerHTML = "<span style='color:red'>Address Required";
                         }
-
 
                         alert("Please Fill Customer Details");
                         return false;
@@ -254,4 +241,3 @@
         </script>
     }
 
-</body>

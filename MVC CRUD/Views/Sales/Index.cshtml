@@ -1,8 +1,5 @@
 ﻿@model  MVC_CRUD.Models.ProductSold
 @{
-    /**/
-
-    /**/
 
     ViewBag.Title = "Index";
 }
@@ -16,9 +13,6 @@
 
 
     <a href="#" class="btn btn-primary" id="btnCreate" margin-left=100px>Add New Sale</a>
-
-    @*  <a href="#" class="btn btn-primary" id="btnCreate">Add New Product</a>*@
-
 
     <br />
     <br />
@@ -40,295 +34,273 @@
 
     </table>
 
+    @using (Html.BeginForm())
+    {
+        <div id="m_modal" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    @Html.AntiForgeryToken()
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="m_Title" style="margin-right:20px"></h3>
+                        @Html.ActionLink("x", "Index", "Sale", new { @class = "close" })
+                    </div>
 
-    <div id="m_modal" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title" id="m_Title" style="margin-right:20px"></h3>
-                    @Html.ActionLink("x", "Index", "Sale", new { @class = "close" })
-                </div>
-                @Html.ValidationSummary(true)
-                <div class="modal-body">
+                    <div class="modal-body">
+                        @Html.Label("Customer Name")
+                        <br />
+                        <div id="error0"></div>
+                        <select id="Customer_Name"></select>
 
+                        <span class="validity">  </span>
+                        <br />
+                        <br />
 
-                    @Html.Label("Customer Name")
-                    <br />
-                    <div id="error0"></div>
-
-                    <select id="Customer_Name">
-                       
-                    </select>
-
-                    <span class="validity">  </span>
-                    <br />
-                    <br />
-
-                    @Html.Label("Product Name")
-                    <br />
-                    <div id="error1"></div>
-                    <select id="Product_Name">
-                     
-                    </select>
-
-                    <span class="validity">  </span>
-                    <br />
-                    <br />
+                        @Html.Label("Product Name")
+                        <br />
+                        <div id="error1"></div>
+                        <select id="Product_Name"></select>
+                        <span class="validity">  </span>
+                        <br />
+                        <br />
 
 
-                    @Html.Label("Store Name")
-                    <br />
-                    <div id="error2"></div>
-                    <select id="Store_Name">
-                        @*  <option value=""></option>   to put empty value*@
-                    </select>
+                        @Html.Label("Store Name")
+                        <br />
+                        <div id="error2"></div>
+                        <select id="Store_Name">
+                            @*  <option value=""></option>   to put empty value*@
+                        </select>
+                        <span class="validity">  </span>
+                        <br />
+                        <br />
+                        @Html.Label("Date Sold")
+                        <br />
+                        <div id="error3"></div>
+                        <input id="Datesold" type="date" class="datepicker" name="date" />
+                        @Html.ValidationMessageFor(model => model.Datesold, null, new { @class = "text-danger" })
+                        <span class="validity">  </span>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" value="Save" class="btn btn-primary" id="btnSubmit" />
+                        @Html.ActionLink("Close", "Index", "Sale", new { @class = "btn btn-danger" })
 
-                    <span class="validity">  </span>
-                    <br />
-                    <br />
-
-
-                    @Html.Label("Date Sold")
-                    <br />
-                    <div id="error3"></div>
-                    <input id="Datesold" type="date" class="datepicker" name="date" />
-                    <span class="validity">  </span>
-                </div>
-                <div class="modal-footer">
-                    <input type="submit" value="Save" class="btn btn-primary" id="btnSubmit" />
-                    @Html.ActionLink("Close", "Index", "Sale", new { @class = "btn btn-danger" })
-
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
+</body>
 
-    @section scripts{
- 
+@section scripts{
 
+    <script>
 
-        <script>
+        $(document).ready(function () {
 
+            $.ajax({
+                type: "GET",
+                url: "/Sales/GetAllSales",
 
-            $(document).ready(function () {
-                debugger;
-                $.ajax({
-                    type: "GET",
-                    url: "/Sales/GetAllSales",
-                  
-                    success: function (data) {
-                        var jsondata = JSON.parse(data);//to change serialised data format
-                        for (var item in jsondata) {
-                            jsondata[item].Datesold = moment(jsondata[item].Datesold).format('L');//change date format
-                        }
-                        console.log(jsondata);
-                        $.each(jsondata, function (index, obj) {
-                            var ID = obj.ID;
-                            console.log(obj.ID);
-                            console.log(obj.Customer.Name);
-                            //var row = '<tr><td> ' + obj.Customer.Name + ' </td><td>' + obj.Product.Name + ' </td><td>' + obj.Store.Name + ' </td></tr>';
-                            var row = '<tr><td> ' + obj.Customer.Name + ' </td><td>' + obj.Product.Name + ' </td><td>' + obj.Store.Name + ' </td><td>' + obj.Datesold + ' </td><td> <div><span class="btn_edit" ><a href="#" class="btn btn-warning " id="' + obj.ID + '" style="color:white; margin-left:10px"" ><i class="fa fa-pencil"></i>Edit</a></span></div></td>' + '<td><div><span class="btn_delete" ><button class="btn btn-danger" id="' + obj.ID + '"style="color:white; margin-left:10px""><i class="fa fa-trash"></i> Delete</button></span></div></td></tr>';
-                            $("#SaleTable tbody").append(row);
-
-                        });
+                success: function (data) {
+                    var jsondata = JSON.parse(data);//to change serialised data format
+                    for (var item in jsondata) {
+                        jsondata[item].Datesold = moment(jsondata[item].Datesold).format('L');//change date format
                     }
-                });
-                $.ajax({
-                    type: "GET",
-                    url: "/Customer/GetAllCustomers",
-                    success: function (data) {
-                        
-                        var select = document.getElementById("Customer_Name");
-                        for (var item in data){
-                            var option = document.createElement('option');
-                            option.text = data[item].Name;
-                            option.value = data[item].ID;
-                            select.add(option, 0);
-                        }
-                        // alert("sucess")
-                        //  ko.applyBindings(viewModel);
-                    }
-                })
+                    console.log(jsondata);
+                    $.each(jsondata, function (index, obj) {
+                        var ID = obj.ID;
+                        console.log(obj.ID);
+                        console.log(obj.Customer.Name);
+                        var row = '<tr><td> ' + obj.Customer.Name + ' </td><td>' + obj.Product.Name + ' </td><td>' + obj.Store.Name + ' </td><td>' + obj.Datesold + ' </td><td> <div><span class="btn_edit" ><a href="#" class="btn btn-warning " id="' + obj.ID + '" style="color:white; margin-left:10px"" ><i class="fa fa-pencil"></i>Edit</a></span></div></td>' + '<td><div><span class="btn_delete" ><button class="btn btn-danger" id="' + obj.ID + '"style="color:white; margin-left:10px""><i class="fa fa-trash"></i> Delete</button></span></div></td></tr>';
+                        $("#SaleTable tbody").append(row);
 
-                $.ajax({
-                    type: "GET",
-                    url: "/Products/GetAllProducts",
-                    success: function (data) {
-                        var select = document.getElementById("Product_Name");
-                        for (var item in data) {
-                            var option = document.createElement('option');
-                            option.text = data[item].Name;
-                            option.value = data[item].ID;
-                            select.add(option, 0);
-                        }
-                    }
-                });
-                $.ajax({
-                    type: "GET",
-                    url: "/Store/GetAllStores",
-                    success: function (data) {
-                        var select = document.getElementById("Store_Name");
-                        for (var item in data) {
-                            var option = document.createElement('option');
-                            option.text  = data[item].Name;
-                            option.value = data[item].ID;
-                            select.add(option, 0);
-                        }
-                    }
-                })
-
-
-                $("#btnCreate").on('click', function () {
-                    $('#m_modal').modal('show');
-                    $('.modal-title').text("Create Record");
-                });
-
-
-
-                $(document).on('click', '.btn_edit', function (event) {
-
-                    Id = event.target.id;
-                  
-                    $.ajax({
-                        url: '/Sales/GetSale',
-                        method: 'GET',
-                        data: { ID: Id },
-                        success: function (data) {
-                            ID = data.ID
-                            return true;
-                        },
-
-                    })
-
-                    $('#m_modal').modal('show');
-                    $('.modal-title').text("Edit Record");
-
-                });
-
-                $(document).on('click', '.btn_delete', function (event) {
-                    Id = event.target.id;
-
-                    $.ajax({
-                        url: '/Sales/GetSale',
-                        method: 'GET',
-                        data: { ID: Id },
-                        success: function (data) {
-                            ID = data.ID
-                            return true;
-                        },
-                        error: function (data) {
-                            alert("error");
-                        }
-                    })
-
-                    bootbox.confirm("Are you sure you want to delete?", function (result)//jquery library that has inbuit modals, added in layout and bundle only .js file
-                    {
-                        console.log('This was logged in the callback: ' + result);
-                        if (result) {
-                            var delete_confirm = true;
-                            console.log("true");
-                            $.ajax({
-                                url: '/Sales/Delete',
-                                method: 'POST',
-                                data: { ID: Id },
-                                success: function () {
-                                    location.reload();
-                                    return true;
-                                },
-                                error: function () {
-
-                                    location.reload();
-                                }
-
-                            })
-                        }
-                        else {
-                            var delete_confirm = false;
-                            location.reload();
-                        }
                     });
-                    
-                });
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: "/Customer/GetAllCustomers",
+                success: function (data) {
 
-                $(document).on("click", "#btnSubmit", null, function (ev) {             
-                    var Customer_Name = $("#Customer_Name").val();
-                    var Product_Name = $("#Product_Name").val();
-                    var Store_Name = $("#Store_Name").val();
-                    var Datesold = $("#Datesold").val();
-                   
-                    if (Customer_Name != '' && Product_Name != '' && Store_Name != '' && Datesold != '') {
+                    var select = document.getElementById("Customer_Name");
+                    for (var item in data) {
+                        var option = document.createElement('option');
+                        option.text = data[item].Name;
+                        option.value = data[item].ID;
+                        select.add(option, 0);
+                    }
+                }
+            })
 
-                        if ($('#m_Title').text() === "Create Record") {
-                         
+            $.ajax({
+                type: "GET",
+                url: "/Products/GetAllProducts",
+                success: function (data) {
+                    var select = document.getElementById("Product_Name");
+                    for (var item in data) {
+                        var option = document.createElement('option');
+                        option.text = data[item].Name;
+                        option.value = data[item].ID;
+                        select.add(option, 0);
+                    }
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: "/Store/GetAllStores",
+                success: function (data) {
+                    var select = document.getElementById("Store_Name");
+                    for (var item in data) {
+                        var option = document.createElement('option');
+                        option.text = data[item].Name;
+                        option.value = data[item].ID;
+                        select.add(option, 0);
+                    }
+                }
+            })
 
-                            $.ajax({
-                                url: '/Sales/Index',
-                                method: 'POST',
-                                data: {
-                                    CustomerID: Customer_Name, ProductID: Product_Name, StoreID: Store_Name, Datesold: Datesold
-                                },
-                                success: function () {
 
-                                    location.reload();
-                                    return true;
-                                },
-                                error: function () {
-                                    alert("error");
-                                    location.reload();
-                                }
-                            })
-                        }
-                        else if ($('#m_Title').text() === "Edit Record") {
-                         
+            $("#btnCreate").on('click', function () {
+                $('#m_modal').modal('show');
+                $('.modal-title').text("Create Record");
+            });
 
-                            $.ajax({
-                                url: '/Sales/Edit',
-                                method: 'POST',
-                                data: {
-                                    ID: Id, CustomerID: Customer_Name, ProductID: Product_Name, StoreID: Store_Name, Datesold: Datesold
-                                },
-                                success: function () {
-                                    location.reload();
-                                    return true;
-                                },
-                                error: function () {
 
-                                    location.reload();
-                                }
 
-                            })
-                        }
-                       
+            $(document).on('click', '.btn_edit', function (event) {
+
+                Id = event.target.id;
+
+                $.ajax({
+                    url: '/Sales/GetSale',
+                    method: 'GET',
+                    data: { ID: Id },
+                    success: function (data) {
+                        ID = data.ID
+                        return true;
+                    },
+
+                })
+
+                $('#m_modal').modal('show');
+                $('.modal-title').text("Edit Record");
+
+            });
+
+            $(document).on('click', '.btn_delete', function (event) {
+                Id = event.target.id;
+
+                $.ajax({
+                    url: '/Sales/GetSale',
+                    method: 'GET',
+                    data: { ID: Id },
+                    success: function (data) {
+                        ID = data.ID
+                        return true;
+                    },
+                    error: function (data) {
+                    }
+                })
+
+                bootbox.confirm("Are you sure you want to delete?", function (result)//jquery library that has inbuit modals, added in layout and bundle only .js file
+                {
+                    console.log('This was logged in the callback: ' + result);
+                    if (result) {
+                        var delete_confirm = true;
+                        console.log("true");
+                        $.ajax({
+                            url: '/Sales/Delete',
+                            method: 'POST',
+                            data: { ID: Id },
+                            success: function () {
+                                location.reload();
+                                return true;
+                            },
+                            error: function () {
+                                location.reload();
+                            }
+
+                        })
                     }
                     else {
-                        console.log("sorry");
-                        if (Customer_Name == '') {
-                            document.getElementById('error0').innerHTML = "<span style='color:red'> Customer Name Required";
-                        }
-                        if (Product_Name == "") {
-                            document.getElementById('error1').innerHTML = "<span style='color:red'> Product Name Required";
-                        }
-                        if (Store_Name == "") {
-                            document.getElementById('error2').innerHTML = "<span style='color:red'> Store Name Required";
-                        }
-                        if (Datesold == "") {
-                            document.getElementById('error3').innerHTML = "<span style='color:red'> Please select Date";
-                        }
-
-                        alert("Please Fill Sale Details");
-                        return false;
-
+                        var delete_confirm = false;
+                        location.reload();
                     }
-
                 });
 
+            });
 
-            });//document ready
+            $(document).on("click", "#btnSubmit", null, function (ev) {
+                var Customer_Name = $("#Customer_Name").val();
+                var Product_Name = $("#Product_Name").val();
+                var Store_Name = $("#Store_Name").val();
+                var Datesold = $("#Datesold").val();
+
+                if (Customer_Name != '' && Product_Name != '' && Store_Name != '' && Datesold != '') {
+
+                    if ($('#m_Title').text() === "Create Record") {
 
 
+                        $.ajax({
+                            url: '/Sales/Create',
+                            method: 'POST',
+                            data: {
+                                CustomerID: Customer_Name, ProductID: Product_Name, StoreID: Store_Name, Datesold: Datesold
+                            },
+                            success: function () {
+                                location.reload();
+
+                            },
+                            error: function () {
+
+                            }
+                        })
+                    }
+                    else if ($('#m_Title').text() === "Edit Record") {
 
 
-        </script>
-    }
+                        $.ajax({
+                            url: '/Sales/Edit',
+                            method: 'POST',
+                            data: {
+                                ID: Id, CustomerID: Customer_Name, ProductID: Product_Name, StoreID: Store_Name, Datesold: Datesold
+                            },
+                            success: function () {
+                                location.reload();
 
-</body>
+                            },
+                            error: function () {
+
+                            }
+
+                        })
+                    }
+
+                }
+                else {
+                    console.log("sorry");
+                    if (Customer_Name == '') {
+                        document.getElementById('error0').innerHTML = "<span style='color:red'> Customer Name Required";
+                    }
+                    if (Product_Name == "") {
+                        document.getElementById('error1').innerHTML = "<span style='color:red'> Product Name Required";
+                    }
+                    if (Store_Name == "") {
+                        document.getElementById('error2').innerHTML = "<span style='color:red'> Store Name Required";
+                    }
+                    if (Datesold == "") {
+                        document.getElementById('error3').innerHTML = "<span style='color:red'> Please select Date";
+                    }
+                    alert("Please Fill Sale Details");
+                    return false;
+                }
+
+            });
+
+
+        });//document ready
+
+    </script>
+}
+
+

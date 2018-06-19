@@ -1,20 +1,16 @@
-﻿@model List<MVC_CRUD.Models.Product>
+﻿@model MVC_CRUD.Models.Product
 @{
     ViewBag.Title = "Index";
 }
 
-<br />
-<h2>Product Details</h2>
-<br />
+    <br />
+    <h2>Product Details</h2>
+    <br />
 
 <body>
 
 
     <a href="#" class="btn btn-primary" id="btnCreate" margin-left=100px>Add New Product</a>
-
-    @*  <a href="#" class="btn btn-primary" id="btnCreate">Add New Product</a>*@
-
-
     <br />
     <br />
 
@@ -33,28 +29,30 @@
 
     </table>
 
-
+   @using (Html.BeginForm())
+   {
     <div id="m_modal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
+                @Html.AntiForgeryToken()
                 <div class="modal-header">
                     <h3 class="modal-title" id="m_Title" style="margin-right:20px"></h3>
                     @Html.ActionLink("x", "Index", "Products", new { @class = "close" })
                 </div>
-                @Html.ValidationSummary(true)
+
                 <div class="modal-body">
                     @Html.Label("Name")
                     <br />
                     <div id="error0"></div>
-                    <input type="text" name="Name" id="Name" required />
-                    <span class="validity">  </span>
+                    @Html.TextBoxFor(model => model.Name)
+                    @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
                     <br />
                     <br />
                     @Html.Label("Price")
                     <br />
                     <div id="error1"></div>
-                    <input type="text" name="Price" id="Price" required />
-                    <span class="validity">  </span>
+                    @Html.TextBoxFor(model => model.Price)
+                    @Html.ValidationMessageFor(model => model.Price, null, new { @class = "text-danger" })
                     <br />
                 </div>
                 <div class="modal-footer">
@@ -65,6 +63,7 @@
             </div>
         </div>
     </div>
+   }
 
     @section scripts{
 
@@ -143,7 +142,7 @@
                             return true;
                         },
                         error: function () {
-                            alert("error");
+                            alert("Error");
                         }
 
                     })
@@ -163,7 +162,6 @@
                                     return true;
                                 },
                                 error: function () {
-
                                     location.reload();
                                 }
 
@@ -180,30 +178,26 @@
                 $(document).on("click", "#btnSubmit", null, function (ev) {
                     var Name = $("#Name").val();
                     var Price = $("#Price").val();
-                    //    if (Name != '' && Price != '')
-                    //  {
-                    //   if (!isNaN(Price)) {
-                    console.log("ok");
-
+                    if (Name != '' && Price != '')
+                    {
+                    if (!isNaN(Price)) {
+                   
                     if ($('#m_Title').text() === "Create Record") {
 
 
                         $.ajax({
-                            url: '/Products/Index',
+                            url: '/Products/Create',
                             method: 'POST',
                             data: { Name: Name, Price: Price },
                             success: function () {
-
                                 location.reload();
-                                return true;
                             },
                             error: function () {
-                                alert("error");
-                                location.reload();
                             }
                         })
                     }
-                    else if ($('#m_Title').text() === "Edit Record") {
+                    else if ($('#m_Title').text() === "Edit Record")
+                    {
 
 
                         $.ajax({
@@ -212,37 +206,31 @@
                             data: { ID: Id, Name: Name, Price: Price },
                             success: function () {
                                 location.reload();
-                                return true;
                             },
                             error: function () {
-
-                                location.reload();
                             }
 
                         })
                     }
 
-                    /*    }
+                    }
                       else {
-                          document.getElementById('error1').innerHTML = "<span style='color:red'>This entry can only contain numbers";
-                          //  alert("This entry can only contain numbers")
+                          document.getElementById('error1').innerHTML = "<span style='color:red'>This entry can only contain numbers";                 
                           return false;
                       }
-               //   }
+                  }
                 else {
-                      console.log("sorry");
                       if (Name == '') {
-                          document.getElementById('error0').innerHTML = "<span style='color:red'>Name Required";
+                          document.getElementById('error0').innerHTML = "<span style='color:red'> Name Required";
                       }
                       if (Price == "") {
-                          document.getElementById('error1').innerHTML = "<span style='color:red'>Price Required";
+                          document.getElementById('error1').innerHTML = "<span style='color:red'> Price Required";
                       }
-
 
                       alert("Please Fill Product Details");
                       return false;
 
-                  }*/
+                  }
 
                 });
 

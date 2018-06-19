@@ -15,7 +15,7 @@ namespace MVC_CRUD.Models
     using System.Web.Mvc;
     using System.Collections.Generic;
 
-   // [Bind(Exclude = "ID")]
+
     public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,15 +23,15 @@ namespace MVC_CRUD.Models
         {
             this.ProductSolds = new HashSet<ProductSold>();
         }
-       // [ScaffoldColumn(false)]
+  
         public int ID { get; set; }
 
         [DisplayName("Name")]
-        [Required(ErrorMessage = "Product Name is required")]
+        [Required(ErrorMessage = "*")]
         [StringLength(100, MinimumLength = 3)]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Price is required")]
+        [Required(ErrorMessage = "*")]
         [Range(1, 10000000, ErrorMessage = "Price must be between 1 and 10000000")]
         public string Price { get; set; }
     

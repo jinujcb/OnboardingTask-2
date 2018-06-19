@@ -29,11 +29,11 @@ namespace MVC_CRUD.Models
 
 
         [DisplayName("Name")]
-        [Required(ErrorMessage = "Store Name is required")]
+        [Required(ErrorMessage = "*")]
         [StringLength(100, MinimumLength = 3)]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Store Address is required")]
+        [Required(ErrorMessage = "*")]
         [StringLength(300)]
         public string Address { get; set; }
     

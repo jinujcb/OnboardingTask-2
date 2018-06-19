@@ -30,42 +30,25 @@ namespace MVC_CRUD.Controllers
         }
         public ActionResult Index()
         {
-            return View(db.Customers.ToList());
+            return View("Index");
         }
 
-        [HttpPost]
-        public ActionResult Index(Customer customer)
-        {
 
+        [HttpPost]
+        public ActionResult Create(Customer customer)
+        {
             if (ModelState.IsValid)
             {
                 db.Customers.Add(customer);
                 db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            
-
-            return View(db.Customers.ToList());
+            return View();
         }
-
-
-
-
-        public ActionResult Edit(int id)
-        {
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
-            {
-                return HttpNotFound();
-            }
-            return View(customer);
-        }
-
-
 
         [HttpPost]
         public ActionResult Edit(Customer customer)  // Update PartialView  
         {
-            // bool status = false;
             if (ModelState.IsValid)
             {
                 Customer customernew = db.Customers.Where(X => X.ID == customer.ID).FirstOrDefault();
@@ -75,45 +58,31 @@ namespace MVC_CRUD.Controllers
                     customernew.Name = customer.Name;
                     customernew.Address = customer.Address;
                 }
-
-            }
-            db.SaveChanges();
-
-            return RedirectToAction("Index");
-        }
-
-
-        public ActionResult Delete(int id)
-        {
-            Customer customernew = db.Customers.Where(X => X.ID == id).FirstOrDefault();
-            if (customernew != null)
-            {
-                return View(customernew);
+                db.SaveChanges();
+                return View("Index");
             }
             else
-                return HttpNotFound();
+            {
+                return View(customer);
+            }
         }
-
 
 
         [HttpPost]
         [ActionName("Delete")]
         public ActionResult DeleteEmployee(int id)  // Update PartialView  
         {
-            // bool status = false;
             if (ModelState.IsValid)
             {
-                Customer customer = db.Customers.Where(X => X.ID == id).FirstOrDefault();
-                if (customer != null)
+                Customer customernew = db.Customers.Where(X => X.ID == id).FirstOrDefault();
+                if (customernew != null)
                 {
-                    db.Customers.Remove(customer);
+                    db.Customers.Remove(customernew);
                     db.SaveChanges();
-                    // status = true;
                 }
-                // db.Customers.Remove(customer);
-                db.SaveChanges();
             }
             return RedirectToAction("Index");
+
         }
     }
 }

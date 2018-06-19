@@ -28,50 +28,27 @@ namespace MVC_CRUD.Controllers
             return Json(storenew, JsonRequestBehavior.AllowGet);
 
         }
-      
+
         public ActionResult Index()
         {
-            return View(db.Stores.ToList());
+            return View("Index");
         }
 
         [HttpPost]
-        public ActionResult Index(Store store)
+        public ActionResult Create(Store store)
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    db.Stores.Add(store);
-                    db.SaveChanges();
-
-                }
-                catch (Exception Ex)
-                {
-                    throw Ex;
-                }
+                db.Stores.Add(store);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            return View(db.Stores.ToList());
+            return View();
         }
-
-
-
-
-        public ActionResult Edit(int id)
-        {
-            Store store = db.Stores.Find(id);
-            if (store == null)
-            {
-                return HttpNotFound();
-            }
-            return View(store);
-        }
-
-
 
         [HttpPost]
         public ActionResult Edit(Store store)  // Update PartialView  
         {
-            // bool status = false;
             if (ModelState.IsValid)
             {
                 Store storenew = db.Stores.Where(X => X.ID == store.ID).FirstOrDefault();
@@ -81,32 +58,20 @@ namespace MVC_CRUD.Controllers
                     storenew.Name = store.Name;
                     storenew.Address = store.Address;
                 }
-
-
                 db.SaveChanges();
-            }
-            return RedirectToAction("Index");
-        }
-
-
-        public ActionResult Delete(int id)
-        {
-            Store storenew = db.Stores.Where(X => X.ID == id).FirstOrDefault();
-            if (storenew != null)
-            {
-                return View(storenew);
+                return View("Index");
             }
             else
-                return HttpNotFound();
+            {
+                return View(store);
+            }
         }
-
 
 
         [HttpPost]
         [ActionName("Delete")]
         public ActionResult DeleteEmployee(int id)  // Update PartialView  
         {
-            // bool status = false;
             if (ModelState.IsValid)
             {
                 Store storenew = db.Stores.Where(X => X.ID == id).FirstOrDefault();
@@ -114,12 +79,10 @@ namespace MVC_CRUD.Controllers
                 {
                     db.Stores.Remove(storenew);
                     db.SaveChanges();
-                    // status = true;
                 }
-                db.SaveChanges();
             }
             return RedirectToAction("Index");
-           
+
         }
 
     }

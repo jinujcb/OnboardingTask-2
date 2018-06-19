@@ -10,10 +10,10 @@
 namespace MVC_CRUD.Models
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.Web.Mvc;
+    using System.Collections.Generic;//Include after data annotations
 
     public partial class Customer
     {
@@ -26,11 +26,11 @@ namespace MVC_CRUD.Models
         public int ID { get; set; }
 
         [DisplayName(" Name")]
-        [Required(ErrorMessage = "Customer Name is required")]
+        [Required(ErrorMessage = "*")]
         [StringLength(100, MinimumLength = 3)]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Customer Address is required")]
+        [Required(ErrorMessage = "*")]
         [StringLength(300)]
         public string Address { get; set; }
     
